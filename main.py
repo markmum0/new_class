@@ -14,6 +14,10 @@ class Employee:
 
         Employee.num_employ += 1
 
+    # i need the details of the employee
+    def full_details(self):
+        return '{} {} : {} : {} : {}'.format(self.first, self.last, self.department, self.pay, self.email)
+
     # method to get the full names of the employees and other stuff
     def fullname(self):
         return '{} {}'.format(self.first, self.last)
@@ -37,6 +41,12 @@ class Employee:
             return False
         return True
 
+    # am using the class method as alternative constructor
+    @classmethod
+    def from_string(cls, emp_str):
+        first, last, department, pay = emp_str.split('+')
+        return cls(first, last, department, pay)
+
 
 emp_1 = Employee('mark', 'mumo', 'finance', '60000')
 emp_2 = Employee('liz', 'mukai', 'marketing', '100000')
@@ -59,3 +69,11 @@ import datetime
 
 my_date = datetime.date(2024, 1, 16)
 print(Employee.work_day(my_date))
+
+emp = 'mar+mumo+sales+10000'
+emp_4 = Employee.from_string(emp)
+print(emp_4.fullname())
+
+print(Employee.num_employ)
+
+print(emp_4.full_details())
