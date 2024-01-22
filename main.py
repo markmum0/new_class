@@ -48,6 +48,35 @@ class Employee:
         return cls(first, last, department, pay)
 
 
+# the new class developer inherits attributes from the employee class
+class Developer(Employee):
+
+    def __init__(self, first, last, department, pay, prog_lang):
+        super().__init__(first, last, department, pay)
+        self.prog_lang = prog_lang
+
+
+class Manager(Employee):
+    def __init__(self, first, last, department, pay, employees=None):
+        super().__init__(first, last, department, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+    def add_emp(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+
+    def print_employees(self):
+        for emp in self.employees:
+            print('-->', emp.fullname())
+
+
 emp_1 = Employee('mark', 'mumo', 'finance', '60000')
 emp_2 = Employee('liz', 'mukai', 'marketing', '100000')
 emp_3 = Employee('rom', 'yula', 'sales', '400000')
@@ -59,21 +88,34 @@ emp_3 = Employee('rom', 'yula', 'sales', '400000')
 # emp_1.raise amount = 1.05
 
 # now I can use the class method to apply the raise to all employees at once
-Employee.set_raise_amt(1.05)
+# Employee.set_raise_amt(1.05)
 
-print(Employee.raise_amt)
-print(emp_1.raise_amt)
+# print(Employee.raise_amt)
+# print(emp_1.raise_amt)
 
 # now I am calling the work_day function in the Employee class to check whether the date was a weekday. I had to import datetime
-import datetime
+# import datetime
 
-my_date = datetime.date(2024, 1, 16)
-print(Employee.work_day(my_date))
+# my_date = datetime.date(2024, 1, 16)
+# print(Employee.work_day(my_date))
 
-emp = 'mar+mumo+sales+10000'
-emp_4 = Employee.from_string(emp)
-print(emp_4.fullname())
+# emp = 'mar+mumo+sales+10000'
+# emp_4 = Employee.from_string(emp)
+# print(emp_4.fullname())
 
-print(Employee.num_employ)
+# print(Employee.num_employ)
 
-print(emp_4.full_details())
+# print(emp_4.full_details())
+
+dev_1 = Developer('mark', 'mumo', 'soft', '150000', 'python')
+# print(dev_1.email)
+
+# print(dev_1.prog_lang)
+# dev_1.apply_raise()
+# print(dev_1.pay)
+
+mngr_1 = Manager('jan', 'smith', 'acquisitions', '90000', [dev_1])
+
+mngr_1.add_emp(emp_1)
+
+mngr_1.print_employees()
