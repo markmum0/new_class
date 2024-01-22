@@ -56,22 +56,28 @@ class Developer(Employee):
         self.prog_lang = prog_lang
 
 
+# i have added a new class called manager inheriting attributes from employee class
 class Manager(Employee):
     def __init__(self, first, last, department, pay, employees=None):
+        # the super().__init__  enables inheritance which means we don't have to keep copying the basic code from the original class
         super().__init__(first, last, department, pay)
+        # the employees attribute is supposed to keep increasing so, I created it as a list
         if employees is None:
             self.employees = []
         else:
             self.employees = employees
 
+    # this adds the employees under the manager
     def add_emp(self, emp):
         if emp not in self.employees:
             self.employees.append(emp)
 
+    # this removes the employees under the manager
     def remove_emp(self, emp):
         if emp in self.employees:
             self.employees.remove(emp)
 
+    # this prints the list of employees under the manager
     def print_employees(self):
         for emp in self.employees:
             print('-->', emp.fullname())
@@ -107,6 +113,7 @@ emp_3 = Employee('rom', 'yula', 'sales', '400000')
 
 # print(emp_4.full_details())
 
+# DEVS SECTION
 dev_1 = Developer('mark', 'mumo', 'soft', '150000', 'python')
 # print(dev_1.email)
 
@@ -114,6 +121,7 @@ dev_1 = Developer('mark', 'mumo', 'soft', '150000', 'python')
 # dev_1.apply_raise()
 # print(dev_1.pay)
 
+# MANAGERS SECTION
 mngr_1 = Manager('jan', 'smith', 'acquisitions', '90000', [dev_1])
 
 mngr_1.add_emp(emp_1)
